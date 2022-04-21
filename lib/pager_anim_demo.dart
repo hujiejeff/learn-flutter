@@ -1,14 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
-
 /// 翻书效果
 class PagerDemo extends StatefulWidget {
   const PagerDemo({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _PagerDemoState();
-
 }
 
 class _PagerDemoState extends State<PagerDemo>
@@ -29,8 +27,13 @@ class _PagerDemoState extends State<PagerDemo>
     init();
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 5))
-          ..addListener(() {
-            setState(() {});
+          ..addListener(() => setState(() {}))
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _controller.reverse();
+            } else if (status == AnimationStatus.dismissed) {
+              _controller.forward();
+            }
           });
     _animation = Tween(begin: .0, end: pi / 2).animate(
         CurvedAnimation(parent: _controller, curve: const Interval(.0, .5)));
