@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 
 /// 翻书效果
 class PagerDemo extends StatefulWidget {
-  PagerDemo({Key? key}) : super(key: key);
+  const PagerDemo({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return _PagerDemoState();
-  }
+  State<StatefulWidget> createState() => _PagerDemoState();
+
 }
 
 class _PagerDemoState extends State<PagerDemo>
