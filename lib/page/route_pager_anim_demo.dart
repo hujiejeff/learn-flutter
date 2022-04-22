@@ -1,6 +1,13 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
+class RoutePagerDemo extends StatelessWidget {
+  const RoutePagerDemo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => const PagerDemo();
+}
+
 /// 翻书效果
 class PagerDemo extends StatefulWidget {
   const PagerDemo({Key? key}) : super(key: key);

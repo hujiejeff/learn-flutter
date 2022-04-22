@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/pager_anim_demo.dart';
+import 'package:learn_flutter/page/route_pager_anim_demo.dart';
+import 'package:learn_flutter/page/route_flip_clock_demo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,12 +11,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const title = "Flutter Demo";
     return MaterialApp(
-      title: 'Flutter Demo',
+      showPerformanceOverlay: false,
+      title: title,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const PagerDemo(),
+      home: const MyHomePage(
+        title: title,
+      ),
     );
   }
 }
@@ -48,12 +53,21 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            ElevatedButton(
+              child: Text('翻页动画demo'),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const RoutePagerDemo();
+                }));
+              },
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            ElevatedButton(
+              child: Text('时钟翻页动画'),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const RouteFLipClockDemo();
+                }));
+              },
             ),
           ],
         ),
