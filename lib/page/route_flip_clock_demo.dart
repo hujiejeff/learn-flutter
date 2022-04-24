@@ -26,7 +26,7 @@ class RouteFLipClockDemo extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               num.toString(),
-              style: TextStyle(color: Colors.white, fontSize: 100),
+              style: const TextStyle(color: Colors.white, fontSize: 100),
             ),
             color: Colors.black,
           ),
@@ -39,7 +39,7 @@ class RouteFLipClockDemo extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               next.toString(),
-              style: TextStyle(color: Colors.white, fontSize: 100),
+              style: const TextStyle(color: Colors.white, fontSize: 100),
             ),
             color: Colors.black,
           ),
@@ -85,10 +85,6 @@ class _FlipClockState extends State<FlipClock> {
   @override
   void initState() {
     super.initState();
-    DateTime dateTime = DateTime.now();
-    h = dateTime.hour;
-    m = dateTime.minute;
-    s = dateTime.second;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       DateTime dateTime = DateTime.now();
       var hour = dateTime.hour;
@@ -98,11 +94,24 @@ class _FlipClockState extends State<FlipClock> {
         isHourStartAni = hour > h;
         isMinuteStartAni = minute > m;
         isSecondStartAni = second > s;
-        h = hour;
-        m = minute;
-        s = second;
+        if (isHourStartAni) {
+          h = hour;
+        }
+        if (isMinuteStartAni) {
+          m = minute;
+        }
+        if (isSecondStartAni) {
+          s = second;
+        }
       });
     });
+  }
+
+  void updateTime() {
+    DateTime dateTime = DateTime.now();
+    var hour = dateTime.hour;
+    var minute = dateTime.minute;
+    var second = dateTime.second;
   }
 
   @override
@@ -152,9 +161,10 @@ class _FlipClockState extends State<FlipClock> {
 class FlipContainer extends StatefulWidget {
   List<Widget> children;
   bool isStartAni;
+  VoidCallback? onAniEndListener;
 
   FlipContainer(
-      {Key? key, this.children = const <Widget>[], this.isStartAni = false})
+      {Key? key, this.children = const <Widget>[], this.isStartAni = false, this.onAniEndListener})
       : super(key: key);
 
   @override
@@ -180,7 +190,13 @@ class _FlipContainerState extends State<FlipContainer>
     super.initState();
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 1))
-          ..addListener(() => setState(() {}));
+          ..addListener(() => setState(() {}))
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _controller.reset();
+              widget.onAniEndListener?.call();
+            }
+          });
     _animationTop = Tween(begin: .0, end: pi / 2).animate(
         CurvedAnimation(parent: _controller, curve: const Interval(.0, .5)));
     _animationBottom = Tween(begin: -pi / 2, end: .0).animate(
