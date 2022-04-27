@@ -1,7 +1,11 @@
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:learn_flutter/page/route_pager_anim_demo.dart';
 import 'package:learn_flutter/page/route_flip_clock_demo.dart';
 import 'package:learn_flutter/page/route_custom_flow_layout_demo.dart';
+import 'package:learn_flutter/page/route_slide_card_demo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -70,11 +74,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 }));
               },
             ),
+            Transform.rotate(
+              angle: pi/2,
+              child: ElevatedButton(
+                child: Text('自定义Layout'),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return RouteCustomFlowLayoutDemo();
+                  }));
+                },
+              ),
+            ),
             ElevatedButton(
-              child: Text('自定义Layout'),
+              child: Text('飞卡demo'),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return  RouteCustomFlowLayoutDemo();
+                  return  RouteSlideCardDemo();
                 }));
               },
             ),
