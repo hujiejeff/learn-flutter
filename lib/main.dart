@@ -2,10 +2,13 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:learn_flutter/page/card_viewport/route_card_view_pager.dart';
 import 'package:learn_flutter/page/route_pager_anim_demo.dart';
 import 'package:learn_flutter/page/route_flip_clock_demo.dart';
 import 'package:learn_flutter/page/route_custom_flow_layout_demo.dart';
 import 'package:learn_flutter/page/route_slide_card_demo.dart';
+import 'package:learn_flutter/page/route_swipe_demo.dart';
+import 'package:learn_flutter/page/viewport_demo/ViewPortDemo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -90,6 +93,32 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return  RouteSlideCardDemo();
+                }));
+              },
+            ),
+            ElevatedButton(
+              child: Text('ViewportDemo'),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return  ViewportDemo();
+                }));
+              },
+            ),
+
+            ElevatedButton(
+              child: Text('RouteSwipeDemo'),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return  RouteSwipeDemo();
+                }));
+              },
+            ),
+
+            ElevatedButton(
+              child: Text('RouteCardViewPagerDemo'),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return  RouteCardViewPagerDemo();
                 }));
               },
             ),
