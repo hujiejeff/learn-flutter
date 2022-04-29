@@ -85,26 +85,7 @@ class _FlipClockState extends State<FlipClock> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      DateTime dateTime = DateTime.now();
-      var hour = dateTime.hour;
-      var minute = dateTime.minute;
-      var second = dateTime.second;
-      setState(() {
-        isHourStartAni = hour > h;
-        isMinuteStartAni = minute > m;
-        isSecondStartAni = second > s;
-        if (isHourStartAni) {
-          h = hour;
-        }
-        if (isMinuteStartAni) {
-          m = minute;
-        }
-        if (isSecondStartAni) {
-          s = second;
-        }
-      });
-    });
+    updateTime();
   }
 
   void updateTime() {
@@ -112,6 +93,25 @@ class _FlipClockState extends State<FlipClock> {
     var hour = dateTime.hour;
     var minute = dateTime.minute;
     var second = dateTime.second;
+    s = second;
+    h = hour;
+    m = minute;
+    setState(() {
+      if (h != 0) {
+        isHourStartAni = hour > h;
+      }
+      if (minute != 0) {
+        isMinuteStartAni = minute > m;
+      }
+      isSecondStartAni = true;
+      if (isHourStartAni) {
+        h = hour;
+      }
+      if (isMinuteStartAni) {
+        m = minute;
+      }
+      s = (s + 1) % 60;
+    });
   }
 
   @override
@@ -127,6 +127,7 @@ class _FlipClockState extends State<FlipClock> {
     String numStr = num < 10 ? "0" + num.toString() : num.toString();
     String nextNumStr = next < 10 ? "0" + next.toString() : next.toString();
     return FlipContainer(
+      onAniEndListener: updateTime,
       isStartAni: isStartAni,
       children: [
         ClipRRect(
@@ -164,7 +165,10 @@ class FlipContainer extends StatefulWidget {
   VoidCallback? onAniEndListener;
 
   FlipContainer(
-      {Key? key, this.children = const <Widget>[], this.isStartAni = false, this.onAniEndListener})
+      {Key? key,
+      this.children = const <Widget>[],
+      this.isStartAni = false,
+      this.onAniEndListener})
       : super(key: key);
 
   @override
