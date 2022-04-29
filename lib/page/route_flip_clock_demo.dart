@@ -9,8 +9,12 @@ class RouteFLipClockDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: const Center(child: FlipClock()),
+      body: Container(
+        color: Colors.black,
+        child: Center(
+          child: FlipClock(),
+        ),
+      ),
     );
   }
 
@@ -70,15 +74,17 @@ class _FlipClockState extends State<FlipClock> {
   @override
   Widget build(BuildContext context) {
     print("build" + s.toString());
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        buildFlipNum(h, 24, isHourStartAni),
-        const SizedBox(width: 20),
-        buildFlipNum(m, 60, isMinuteStartAni),
-        const SizedBox(width: 20),
-        buildFlipNum(s, 60, isSecondStartAni),
-      ],
+    return Container(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          buildFlipNum(h, 24, isHourStartAni),
+          const SizedBox(width: 20),
+          buildFlipNum(m, 60, isMinuteStartAni),
+          const SizedBox(width: 20),
+          buildFlipNum(s, 60, isSecondStartAni),
+        ],
+      ),
     );
   }
 
@@ -137,9 +143,9 @@ class _FlipClockState extends State<FlipClock> {
             alignment: Alignment.center,
             child: Text(
               numStr,
-              style: const TextStyle(color: Colors.white, fontSize: 70),
+              style: const TextStyle(color: Colors.white, fontSize: 150),
             ),
-            color: Colors.black,
+            color: Color(0xff181a1b),
           ),
         ),
         ClipRRect(
@@ -149,9 +155,9 @@ class _FlipClockState extends State<FlipClock> {
             alignment: Alignment.center,
             child: Text(
               nextNumStr,
-              style: const TextStyle(color: Colors.white, fontSize: 70),
+              style: const TextStyle(color: Colors.white, fontSize: 150),
             ),
-            color: Colors.black,
+            color: Color(0xff181a1b),
           ),
         ),
       ],
@@ -262,7 +268,7 @@ class _FlipContainerState extends State<FlipContainer>
           ],
         ),
         const SizedBox(
-          height: 2,
+          height: 5,
         ),
         Stack(
           children: [
