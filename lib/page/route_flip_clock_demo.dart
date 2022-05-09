@@ -91,6 +91,10 @@ class _FlipClockState extends State<FlipClock> {
   @override
   void initState() {
     super.initState();
+    DateTime dateTime = DateTime.now();
+    h = dateTime.hour;
+    m = dateTime.minute;
+    s = dateTime.second;
     updateTime();
   }
 
@@ -98,25 +102,23 @@ class _FlipClockState extends State<FlipClock> {
     DateTime dateTime = DateTime.now();
     var hour = dateTime.hour;
     var minute = dateTime.minute;
-    var second = dateTime.second;
-    s = second;
-    h = hour;
-    m = minute;
     setState(() {
-      if (h != 0) {
-        isHourStartAni = hour > h;
-      }
-      if (minute != 0) {
-        isMinuteStartAni = minute > m;
-      }
-      isSecondStartAni = true;
       if (isHourStartAni) {
         h = hour;
+        isHourStartAni = false;
       }
       if (isMinuteStartAni) {
         m = minute;
+        isMinuteStartAni = false;
       }
+      isSecondStartAni = true;
       s = (s + 1) % 60;
+      if (s == 59) {
+        isMinuteStartAni = true;
+      }
+      if (m == 59 && s == 59) {
+        isHourStartAni = true;
+      }
     });
   }
 
