@@ -78,11 +78,12 @@ class _FlipClockState extends State<FlipClock> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          buildFlipNum(h, 24, isHourStartAni),
+          buildFlipNum(num: h, carry: 24, isStartAni: isHourStartAni),
           const SizedBox(width: 20),
-          buildFlipNum(m, 60, isMinuteStartAni),
+          buildFlipNum(num: m, carry: 60, isStartAni: isMinuteStartAni),
           const SizedBox(width: 20),
-          buildFlipNum(s, 60, isSecondStartAni),
+          buildFlipNum(
+              num: s, carry: 60, isStartAni: isSecondStartAni, isSecond: true),
         ],
       ),
     );
@@ -130,12 +131,16 @@ class _FlipClockState extends State<FlipClock> {
 
   /// [num] 数字
   /// [carry]  进制
-  Widget buildFlipNum(int num, int carry, bool isStartAni) {
+  Widget buildFlipNum(
+      {int num = 0,
+      int carry = 10,
+      bool isStartAni = false,
+      bool isSecond = false}) {
     int next = (num + 1) % carry;
     String numStr = num < 10 ? "0" + num.toString() : num.toString();
     String nextNumStr = next < 10 ? "0" + next.toString() : next.toString();
     return FlipContainer(
-      onAniEndListener: updateTime,
+      onAniEndListener: isSecond ? updateTime : null,
       isStartAni: isStartAni,
       children: [
         ClipRRect(
