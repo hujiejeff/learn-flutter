@@ -74,19 +74,26 @@ class _FlipClockState extends State<FlipClock> {
   @override
   Widget build(BuildContext context) {
     print("build" + s.toString());
-    return Container(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          buildFlipNum(num: h, carry: 24, isStartAni: isHourStartAni),
-          const SizedBox(width: 20),
-          buildFlipNum(num: m, carry: 60, isStartAni: isMinuteStartAni),
-          const SizedBox(width: 20),
-          buildFlipNum(
-              num: s, carry: 60, isStartAni: isSecondStartAni, isSecond: true),
-        ],
-      ),
-    );
+    return OrientationBuilder(
+        builder: (BuildContext context, Orientation orientation) {
+      List<Widget> children = [
+        buildFlipNum(num: h, carry: 24, isStartAni: isHourStartAni),
+        const SizedBox(width: 20, height: 20),
+        buildFlipNum(num: m, carry: 60, isStartAni: isMinuteStartAni),
+        const SizedBox(width: 20, height: 20),
+        buildFlipNum(
+            num: s, carry: 60, isStartAni: isSecondStartAni, isSecond: true),
+      ];
+      Widget parent;
+      if (orientation == Orientation.landscape) {
+        parent = Row(mainAxisSize: MainAxisSize.min, children: children);
+      } else {
+        parent = Column(mainAxisSize: MainAxisSize.min, children: children);
+      }
+      return Container(
+        child: parent,
+      );
+    });
   }
 
   @override
@@ -146,6 +153,8 @@ class _FlipClockState extends State<FlipClock> {
         ClipRRect(
           borderRadius: BorderRadius.circular(5.0),
           child: Container(
+            width: 200,
+            height: 200,
             padding: const EdgeInsets.all(10),
             alignment: Alignment.center,
             child: Text(
@@ -158,6 +167,8 @@ class _FlipClockState extends State<FlipClock> {
         ClipRRect(
           borderRadius: BorderRadius.circular(5.0),
           child: Container(
+            width: 200,
+            height: 200,
             padding: const EdgeInsets.all(10),
             alignment: Alignment.center,
             child: Text(
