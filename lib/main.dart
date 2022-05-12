@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:learn_flutter/page/card_viewport/route_card_view_pager.dart';
 import 'package:learn_flutter/page/route_pager_anim_demo.dart';
 import 'package:learn_flutter/page/route_flip_clock_demo.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPaintSizeEnabled = true;
     const title = "Flutter Demo";
     return MaterialApp(
       showPerformanceOverlay: false,
