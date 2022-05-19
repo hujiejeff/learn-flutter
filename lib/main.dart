@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     VisualDensity density = VisualDensity(horizontal: 2, vertical: 2);//改变视觉密度使得widget变得更大或者更小，从而适配不同输入输入设备
-    debugPaintSizeEnabled = true;
+    // debugPaintSizeEnabled = true;
     const title = "Flutter Demo";
     return MaterialApp(
       showPerformanceOverlay: false,
