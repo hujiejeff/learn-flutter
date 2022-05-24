@@ -20,9 +20,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DefaultAssetBundle.of(context).loadString("name");
+
     VisualDensity density = VisualDensity(horizontal: 2, vertical: 2);//改变视觉密度使得widget变得更大或者更小，从而适配不同输入输入设备
     // debugPaintSizeEnabled = true;
-    const title = "Flutter Demo";
+    String size = MediaQueryData().size.toString();
+    String title = "Flutter Demo" + size;
     return MaterialApp(
       showPerformanceOverlay: false,
       title: title,
@@ -30,7 +33,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: density
       ),
-      home: const MyHomePage(
+      home: MyHomePage(
         title: title,
       ),
     );
